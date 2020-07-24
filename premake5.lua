@@ -39,7 +39,7 @@ function get_last_git_commit()
         return line:sub(1, 6)
     end
 
-    return "?"
+    return "unknown"
 end
 
 --------------------------------------------------------------------------------
@@ -102,7 +102,7 @@ solution("clink")
     location(to)
 
     characterset("MBCS")
-    flags("Symbols")
+    symbols "on"
     flags("StaticRuntime")
     defines("HAVE_CONFIG_H")
     defines("HANDLE_MULTIBYTE")

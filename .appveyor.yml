@@ -1,0 +1,35 @@
+version: 0.4.9-{build}
+environment:
+  matrix:
+    - TOOLSET: vs2017
+
+os: Visual Studio 2017
+matrix:
+  fast_finish: true
+
+install:
+  # Download Premake
+  - ps: Start-FileDownload 'https://github.com/premake/premake-core/releases/download/v5.0.0-alpha11/premake-5.0.0-alpha11-windows.zip' 'premake.zip'
+
+  # Extract it in-place; premake5.exe is at the top level.
+  - 7z x premake.zip
+
+  ## Add NSIS to PATH
+  - cmd: set PATH=%PATH%;C:\Program Files (x86)\NSIS\;
+
+  # Generate solution files using premake.
+  - premake5.exe %TOOLSET%
+
+configuration:
+  - Release
+
+build_script:
+  - premake5.exe clink_release
+
+artifacts:
+  - path: .build/release/**/clink_DEV.zip
+    name: clink_DEV
+  - path: .build/release/**/clink_DEV_pdb.zip
+    name: clink_DEV_pdb
+  - path: .build/release/**/clink_DEV_setup.exe
+    name: clink_DEV_setup
