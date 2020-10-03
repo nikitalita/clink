@@ -200,7 +200,8 @@ static char* write_trampoline_out(char* write, void* to_hook, void* hook)
         if (c != 0x90 && c != 0xcc)
         {
             LOG_INFO("No nop slide or int3 block detected prior to hook target.");
-            return NULL;
+            LOG_INFO("Oh well, patching anyway!");
+            break;
         }
     }
 
